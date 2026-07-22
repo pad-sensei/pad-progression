@@ -1,0 +1,2 @@
+import {spawnSync} from 'node:child_process'; import {readFileSync} from 'node:fs';
+export function runExporter(args) { const r=spawnSync(args.python,[args.exporter,args.als,'--scene',args.scene,'--base-scene-json',args.baseSceneJson,'--progression',args.progression,'--out',args.out],{encoding:'utf8'}); if(r.status!==0||!r.stdout.includes('[PASS]')) throw new Error(r.stderr||r.stdout); if(readFileSync(args.progression).compare(readFileSync(`${args.out}/progression.json`))!==0) throw new Error('progression bytes differ'); }

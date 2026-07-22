@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pad Sensei progression.json v0.2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "format",
+    "format_version",
+    "bpm",
+    "key",
+    "sections",
+    "form",
+    "generated_by",
+    "generated_at"
+  ],
+  "properties": {
+    "format": {
+      "const": "pad-sensei-progression"
+    },
+    "format_version": {
+      "type": "string",
+      "enum": ["0.1", "0.2"]
+    },
+    "ppq": {
+      "type": "integer",
+      "const": 480,
+      "default": 480
+    },
+    "title": {
+      "type": "string"
+    },
+    "bpm": {
+      "type": "number"
+    },
+    "key": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_pc", "scale"],
+      "properties": {
+        "root_pc": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 11
+        },
+        "scale": {
+          "type": "string"
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "time_signature", "bars", "chords"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "time_signature": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["beats", "note_value"],
+            "properties": {
+              "beats": {
+                "type": "integer", "minimum": 1
+              },
+              "note_value": {
+                "type": "integer", "minimum": 1
+              }
+            }
+          },
+          "bars": {
+            "type": "integer"
+          },
+          "chords": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true,
+              "required": ["bar", "beat", "chord"],
+              "properties": {
+                "bar": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "beat": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "chord": {
+                  "type": "string"
+                },
+                "degree": {
+                  "type": "string"
+                },
+                "function": {
+                  "type": "string"
+                },
+                "offset_ticks": {
+                  "type": "integer"
+                },
+                "duration_ticks": {
+                  "type": "integer", "minimum": 1
+                },
+                "midi_snapshot": {
+                  "type": "array",
+                  "items": {"type": "integer", "minimum": 0, "maximum": 127},
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "form": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "linked_als": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["project", "als_scene"],
+      "properties": {
+        "project": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "als_scene": {
+          "type": "string"
+        }
+      }
+    },
+    "generated_by": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    }
+  }
+}
