@@ -1,0 +1,3 @@
+[submodule "vendor/pad-core"]
+	path = vendor/pad-core
+	url = https://github.com/pad-sensei/pad-core.git
